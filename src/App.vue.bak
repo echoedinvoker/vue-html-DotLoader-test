@@ -1,0 +1,26 @@
+<template>
+  <div>
+    {{ state }}
+  </div>
+  <div>
+    {{ state2 }}
+  </div>
+  <button @click="state += 1">+</button>
+</template>
+
+<script setup>
+import { computed, ref, watch } from 'vue';
+
+const state = ref(0)
+const state2 = ref(0)
+
+watch(
+  () => state.value,
+  () => {
+    console.log('render')
+    state2.value += 1
+  }
+)
+
+
+</script>

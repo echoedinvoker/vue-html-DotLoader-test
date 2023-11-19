@@ -1,0 +1,27 @@
+<template>
+  <div ref="refEl" :style="{ fontSize: `${num2}rem`}">
+    {{ num1 }}
+  </div>
+  <button @click="inc">+</button>
+  <button @click="dec">-</button>
+</template>
+
+<script setup>
+import { computed, onMounted, ref, watch } from 'vue';
+
+const num1 = ref(0)
+const num2 = computed(() => num1.value * 2)
+
+const refEl = ref(null)
+
+function inc() { num1.value += 1 }
+function dec() { num1.value -= 1 }
+
+watch(num2, () => console.log(refEl.value))
+
+onMounted(async () => {
+  fetch('https://jsonplaceholder.typicode.com/todos/1')
+    .then(response => response.json())
+    .then(json => console.log(json))
+})
+</script>

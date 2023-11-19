@@ -1,0 +1,25 @@
+<script setup>
+import state, { dec, inc, defineCount, defineStep, reset } from './actions'
+
+const date = new Date('june 21 2027');
+date.setDate(date.getDate() + state.value.count);
+</script>
+
+<template>
+  <div class="counter">
+    <div>
+      <input type="range" min="0" max="10" :value="state.step" @input="defineStep" />
+      <span>{{ state.step }}</span>
+    </div>
+    <div>
+      <button @click="dec">-</button>
+      <input :value="state.count" @input="defineCount" />
+      <button @click="inc">+</button>
+    </div>
+    <p>{{ date.toDateString() }}</p>
+    <div>
+      <button @click="reset">Reset</button>
+    </div>
+  </div>
+</template>
+

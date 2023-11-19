@@ -1,0 +1,36 @@
+<template>
+  <div><span>variable: </span>{{ data }}</div>
+  <div><span>computed: </span>{{ compData }}</div>
+  <div><span>state: </span>{{ state }}</div>
+  <div><span>computed: </span>{{ compState }}</div>
+  <button @click="addVar">+var</button>
+  <button @click="addState">+state</button>
+</template>
+
+<script setup>
+import { computed, onUpdated, ref } from 'vue';
+
+let data = 0 
+const compData = computed(() => {
+  console.log('computed(not effect)', data)
+  return data + 1
+})
+function addVar() {
+  data += 1
+  console.log('add regular variable ', data)
+}
+
+const state = ref(0)
+const compState = computed(() => {
+  console.log('computed(effect)', state.value)
+  return state.value + 1
+})
+function addState() {
+  state.value += 1
+  state.value -= 1 // 讓結果不變
+  console.log('add state ', state.value)
+}
+
+console.log('scope', data, compData.value, state.value, compState.value)
+onUpdated(() => console.log('update', data, compData.value, state.value, compState.value))
+</script>
